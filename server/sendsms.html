@@ -1,0 +1,13 @@
+    <TABLE><TR><TH>Field<TH>Content
+      <TR><TD>Url:<TD>{{ url }}
+      <TR><TD>To:<TD>{{ to }}
+      <TR><TD>Status:<TD>{{ status_code }}
+      <TR><TD><blockquote>{{ content|escape }}</blockquote>
+    </TABLE>
+    <a href="{{ url }}">{{ url_linktext }}</a>
+Status:<UL>
+<LI>No_Credit - there is not enought credit in your account to send the message.
+<LI>Unauthorized - your credentials are incorrect.
+<LI>0 - there was a problem sending the message.
+<LI>1 , n , id , c - the message was sent successfully. In that case, n is the number of messages that were actually sent (in case the message was long and had to broken to several SMSs), id - the unique message id. You need to register this number in case you would like to receive delivery reports (see below), c - the remaining credit in your account.
+</UL>

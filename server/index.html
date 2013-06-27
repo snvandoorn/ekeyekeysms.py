@@ -1,0 +1,37 @@
+<html>
+<head>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
+</head>
+    <body>
+    <TABLE><TR><TH>Author<TH>msgid<TH>to<TH>text<TH>status<TH>sent
+    {% for sms in smss %}
+      <TR><TD>
+      {% if sms.author %}
+        {{ sms.author }}
+      {% else %}
+        anonymous:
+      {% endif %}
+      <TD>{{ sms.msgid }}
+      <TD>{{ sms.to }}
+      <TD><blockquote>{{ sms.text|escape }}</blockquote>
+      <TD>{{ sms.status }}
+      <TD>{{ sms.date }}
+    {% endfor %}
+    </TABLE>
+    
+    <form action="/sendsms" method="post">
+      <div>SMS Agent password<input type=text name="pwd" cols="60"></div>
+      <div>Send SMS to Tel.:<input type=text name="to" cols="60"></div>
+      <div><textarea name="text" rows="3" cols="60"></textarea></div>
+      <div><input type="submit" value="Send SMS"></div>
+    </form>
+
+    <a href="{{ url }}">{{ url_linktext }}</a>
+Status:<UL>
+<LI>No_Credit - there is not enought credit in your account to send the message.
+<LI>Unauthorized - your credentials are incorrect.
+<LI>0 - there was a problem sending the message.
+<LI>1 , n , id , c - the messgae was sent successfully. In that case, n is the number of messages that were actually sent (in case the message was long and had to broken to several SMSs), id - the unique message id. You need to register this number in case you would like to receive delivery reports (see below), c - the remaining credit in your account.
+</UL>
+  </body>
+</html>
